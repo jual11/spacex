@@ -1,0 +1,24 @@
+.error {
+    text-align: center;
+    font-size: 14px;
+    color: red;
+    padding: 20px;
+}
+
+.error-text {
+    width: 280px;
+    margin: auto;
+}
+
+@media (min-width: 768px) {
+    .error {
+        font-size: 20px;
+        padding-top: 50px;
+        text-align: left;
+    }
+
+    .error-text {
+        width: 500px;
+        margin: 0;
+    }
+}

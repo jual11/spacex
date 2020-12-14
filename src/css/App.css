@@ -1,0 +1,16 @@
+.desktop {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .content-container {
+        display: grid;
+        grid-template-columns: 230px 1fr;
+        height: calc(100vh - 90px);    
+    }
+    .mob {
+        display: none;
+    }
+
+    
+}

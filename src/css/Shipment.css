@@ -1,0 +1,55 @@
+.shipment-container {
+    padding: 25px;
+    top: 140px;
+    z-index: 2;
+    background-color: white;
+    width: 100%;
+    font-size: 14px;
+}
+
+.shipment-companyEmail {
+    margin-bottom: 20px;
+    color: #0089ff;
+    text-decoration: underline;
+}
+
+.shipment-companyName {
+    font-size: 23px;
+    margin-bottom: 5px;
+}
+
+.shipment-cargoBays {
+    margin-bottom: 14px;
+}
+
+.shipment-boxesInput {
+    padding: 4px;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    width: 250px;
+    color: #777776;
+}
+
+@media (min-width: 768px) {
+    .shipment-container {
+        padding: 34px 26px;
+        position: initial; 
+        top: 0px;
+        font-size: 16px;
+    }
+
+    .shipment-companyName {
+        font-size: 30px;
+        margin-bottom: 5px;
+    }
+
+    .shipment-boxesInput {
+        padding: 7px;
+        width: 300px;
+        color: #777776;
+    }
+
+    .shipment-companyEmail {
+        margin-bottom: 30px;
+    }
+}

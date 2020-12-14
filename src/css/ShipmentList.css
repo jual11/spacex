@@ -1,0 +1,29 @@
+.shipmentList-container {
+    height: 100%;
+    text-align: center;
+}
+
+.shipmentList-link-container {
+    padding: 7px;
+    padding-left: 11px;
+    border-bottom: 1px solid #dedede;  
+}
+
+.shipmentList-link-container:hover {
+    background-color: #5ae2ec;
+}
+
+.shipmentListe-link {
+    text-decoration: none;
+    color: #777776;
+}
+
+@media (min-width: 768px) {
+    .shipmentList-container {
+        margin-top: 0;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align: left;
+    }
+}
