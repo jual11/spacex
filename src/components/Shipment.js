@@ -1,28 +1,38 @@
-import React from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import '../css/Shipment.css';
 
-class Shipment extends React.Component{
-    state={
-        boxesInput: this.props.location.state.message.boxes,
-        data: this.props.location.state.message
-    }
+const Shipment = (props) => { 
+    const [isSticky, setSticky] = useState(false);
+    const [boxesInput, setBoxesInput] = useState(props.location.state.message.boxes);
+    const [data, setData] = useState(props.location.state.message);
 
-    componentDidUpdate(prevProps, prevState) {
-        if(this.props.location.state.message !== prevState.data) {
-            const { boxes } = this.props.location.state.message
-            const { message } = this.props.location.state
-            this.setState({boxesInput: boxes, data: message})
-        }     
-    }
+    const ref = useRef(null);
+    const handleScroll = () => {
+        if (ref.current) {
+        setSticky(ref.current.getBoundingClientRect().top <= 0);
+        }
+    };
 
-    renderCargo = () => {
+    useEffect(() => {
+            setBoxesInput(props.location.state.message.boxes)
+            setData(props.location.state.message)
+    }, [props.location.state.message]);
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+        window.removeEventListener('scroll', () => handleScroll);
+        };
+    }, []);
+
+    const renderCargo = () => {
         let baysRequired = 1;
         let currentBaySize = 0;
-        let boxes = this.state.boxesInput;
-        if(boxes === null) {
+        if(boxesInput === null) {
             return <div>There is no outgoing cargo for that company</div>;
         }
-        const orderArray = boxes.split(',');
+        const orderArray = boxesInput.split(',');
         const countItems = orderArray.length;
         let i;
         for (i = 0; i < countItems; i++) {
@@ -37,33 +47,34 @@ class Shipment extends React.Component{
         return(
             <div>
                 <p className='shipment-cargoBays'>Number of required cargo bays: <b>{baysRequired}</b></p>
-                <input className='shipment-boxesInput' onChange={e => this.setState({boxesInput: e.target.value})} value={this.state.boxesInput}></input>
+                <input className='shipment-boxesInput' onChange={e => setBoxesInput(e.target.value)} value={boxesInput}></input>
             </div>
-        );  
-              
+        );           
     }
 
-    renderContent = () => {
-        const { name, email } = this.state.data
+    const renderContent = () => {
         return(
             <div>
-               <h2 className='shipment-companyName'>{name}</h2>
-               <p className='shipment-companyEmail'>{email}</p>
-                {this.renderCargo()}
+               <h2 className='shipment-companyName'>{data.name}</h2>
+               <p className='shipment-companyEmail'>{data.email}</p>
+                {renderCargo()}
             </div>
         )
     }
 
-    render() {
-        if (this.state.data) {
-            return(
-                <div className='shipment-container'>
-                   {this.renderContent()}
+    if (data) {
+        return(
+            <Fragment>
+                <div className={`sticky-wrapper${isSticky ? ' sticky' : ''}`} ref={ref}>
+                    <div className=" shipment-container sticky-inner"> 
+                        {renderContent()}
+                        
+                    </div>
                 </div>
-            );    
-        }
-        return;     
-    }  
+            </Fragment>          
+        );    
+    }
+    return;         
 };
 
 export default Shipment;

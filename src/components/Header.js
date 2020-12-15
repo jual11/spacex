@@ -11,12 +11,20 @@ class Header extends React.Component {
         errorNoCompany: 'There is no company with that name in our database. Please try to insert company name again or select company from the list'  
     }
 
+    capitalizeFirstLetter = (term) => {
+        const newTerm = term.charAt(0).toUpperCase() + term.slice(1);
+        console.log(newTerm)
+    }
+      
+      
+
     onSubmit = (event) => {
         event.preventDefault();
         const { searchTerm, data } = this.state;
+        const upperCaseTerm =  searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1);
 
-        if (this.state.searchTerm) {
-            let singleCompany = data.find(o => o.name === searchTerm);
+        if (upperCaseTerm) {
+            let singleCompany = data.find(o => o.name === upperCaseTerm);
             if(singleCompany === undefined) {
                 history.push({ pathname: `/error`, state: { message: this.state.errorNoCompany }})
                 return;
